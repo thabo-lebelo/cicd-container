@@ -1,11 +1,11 @@
 // log in to ECR
-$(aws ecr get-login --no-include-email --region us-east-1)
+aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 737327749629.dkr.ecr.us-east-1.amazonaws.com
 
 // build the docker image
 docker build -t express-app:latest .
 
 // tag the docker image
-docker tag <IMAGE_NAME> <ECR_URL>
+docker tag express-app:latest 737327749629.dkr.ecr.us-east-1.amazonaws.com/express-app:latest
 
 // push to ECR
-docker push <ECR_URL>
+docker push 737327749629.dkr.ecr.us-east-1.amazonaws.com/express-app:latest

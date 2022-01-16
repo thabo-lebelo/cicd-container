@@ -3,14 +3,14 @@ version: 0.2
 phases:
   pre_build:
     commands:
-      - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 737327749629.dkr.ecr.us-east-1.amazonaws.com
+      - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin <ECR_URL>
   build:
     commands:
-      - docker build -t express-app:latest .
-      - docker tag express-app:latest 737327749629.dkr.ecr.us-east-1.amazonaws.com/express-app:latest
+      - docker build -t <IMAGE_NAME>.
+      - docker tag <IMAGE_NAME> <ECR_URL>
   post_build:
     commands:
-      - docker push 737327749629.dkr.ecr.us-east-1.amazonaws.com/express-app:latest
-      - printf '[{"name":"helloWorld","imageUri":"%s"}]' 737327749629.dkr.ecr.us-east-1.amazonaws.com/express-app:latest > imagedefinitions.json
+      - docker push <ECR_URL>
+      - printf '[{"name":"helloWorld","imageUri":"%s"}]' <ECR_URL> > imagedefinitions.json
 artifacts:
   files: imagedefinitions.json
